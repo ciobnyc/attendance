@@ -73,21 +73,22 @@ tr:last-child td{border-bottom:none}
     <div class="chart-wrap"><canvas id="monthChart"></canvas></div>
   </div>
 
-  <!-- Top 10 and Bottom 10 side by side -->
-  <div class="two-col" id="topbot-wrap"></div>
-
-  <!-- Day of week below -->
+  <!-- Day of week above top/bottom -->
   <div class="card" style="margin-bottom:16px">
     <div class="card-title" style="color:#0f5e56">Weighted Avg Attendance by Day of Week</div>
     <table>
       <thead><tr>
         <th>Day</th><th class="td-num">Days</th>
-        <th class="td-num">Present</th><th class="td-num">Taken</th>
+        <th class="td-num">Present</th><th class="td-num">Absent</th>
+        <th class="td-num">Taken</th>
         <th class="td-pct">Avg %</th>
       </tr></thead>
       <tbody id="dow-tbody"></tbody>
     </table>
   </div>
+
+  <!-- Top 10 and Bottom 10 side by side -->
+  <div class="two-col" id="topbot-wrap"></div>
 
   <div class="footer">CIOB District Attendance · RHDC Daily Counts · FDOS–May 29, 2026 · Contact: Eugene Li | eli2@schools.nyc.gov</div>
 </div>
@@ -141,10 +142,12 @@ function render() {
   document.getElementById('dow-tbody').innerHTML = d.dow.map(r => {
     const hi = r.day === highDOW, lo = r.day === lowDOW;
     const st = hi ? 'color:#0f5e56;font-weight:700' : lo ? 'color:#6b1030;font-weight:700' : '';
+    const absent = r.taken - r.present;
     return `<tr>
       <td class="td-day" style="${st}">${r.day}</td>
       <td class="td-num">${r.days}</td>
       <td class="td-num">${r.present.toLocaleString()}</td>
+      <td class="td-num">${absent.toLocaleString()}</td>
       <td class="td-num">${r.taken.toLocaleString()}</td>
       <td class="td-pct" style="${st}">${r.avg}%</td>
     </tr>`;
@@ -152,6 +155,7 @@ function render() {
     <td>Total</td>
     <td class="td-num">${d.dow.reduce((a,b)=>a+b.days,0)}</td>
     <td class="td-num">${d.total_present.toLocaleString()}</td>
+    <td class="td-num">${(d.total_taken-d.total_present).toLocaleString()}</td>
     <td class="td-num">${d.total_taken.toLocaleString()}</td>
     <td class="td-pct">${d.ytd_avg}%</td>
   </tr>`;

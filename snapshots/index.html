@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EOY School Snapshots 2025–26 · CIOB</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f4f0; color: #1a1a18; min-height: 100vh; }
+  .header { background: #fff; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e5e4de; }
+  .ciob-logo { height: 56px; width: auto; }
+  .nyc-logo  { height: 36px; width: auto; }
+  .hero { background: #fff; border-bottom: 3px solid #0f5e56; padding: 28px 32px 24px; }
+  .hero h1 { font-size: 22px; font-weight: 700; color: #1b2a4a; margin-bottom: 6px; }
+  .hero p  { font-size: 13px; color: #6b6a65; max-width: 680px; line-height: 1.6; }
+  .badge { display: inline-block; margin-top: 10px; background: #e6f4f1; border: 1px solid #b2ddd8; border-radius: 20px; padding: 3px 12px; font-size: 11px; color: #0f5e56; font-weight: 500; }
+  .main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+  .district-card { background: #1b2a4a; border-radius: 10px; padding: 16px 22px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .district-card .label { color: #a0b8cc; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+  .district-card .title { color: #fff; font-size: 15px; font-weight: 600; }
+  .district-card .sub { color: #7a8fa8; font-size: 12px; margin-top: 2px; }
+  .btn-dl-district { display: inline-block; background: #0f5e56; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+  .btn-dl-district:hover { background: #0a4a43; }
+  .controls { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .controls input { font-family: inherit; font-size: 13px; padding: 6px 10px; border: 1px solid #d0cfc8; border-radius: 6px; background: #fff; color: #1a1a18; width: 220px; }
+  .controls select { font-family: inherit; font-size: 13px; padding: 6px 10px; border: 1px solid #d0cfc8; border-radius: 6px; background: #fff; color: #1a1a18; }
+  .count { font-size: 12px; color: #888; margin-left: auto; }
+  .table-wrap { background: #fff; border-radius: 10px; border: 1px solid #e5e4de; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; font-weight: 600; color: #888; padding: 10px 12px; border-bottom: 1px solid #e5e4de; background: #f5f4f0; cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { color: #1a1a18; }
+  td { padding: 9px 12px; border-bottom: 0.5px solid #f0efe9; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafaf8; }
+  .dbn { font-size: 11px; color: #888; font-family: monospace; }
+  .school-name { font-weight: 500; color: #1a1a18; }
+  .num { text-align: right; font-size: 12px; color: #555; }
+  .ca { color: #6b1030; font-weight: 600; }
+  .pill { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .btn-dl { display: inline-block; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px; text-decoration: none; background: #0f5e56; color: #fff; white-space: nowrap; }
+  .btn-dl:hover { background: #0a4a43; }
+  .back-link { font-size: 12px; color: #0f5e56; text-decoration: none; display: inline-block; margin-bottom: 16px; }
+  .back-link:hover { text-decoration: underline; }
+  .footer { background: #f0efe9; border-top: 1px solid #e5e4de; padding: 20px 32px; display: flex; align-items: center; justify-content: center; margin-top: 24px; }
+  .footer img { height: 60px; width: auto; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img class="ciob-logo" src="../CIOB_Logo_2026.jpg" alt="CIOB">
+  <img class="nyc-logo"  src="../nycps-horizontal-logo-ckhs-mzkm-color.png" alt="NYC Public Schools">
+</header>
+
+<div class="hero">
+  <h1>EOY School Attendance Snapshots 2025–26</h1>
+  <p>One-page attendance snapshots for all 51 CIOB schools. Each snapshot shows EOY attendance and chronic absenteeism rates, attendance distribution by band, year-over-year trajectory, cohort breakdown, and subgroup attendance.</p>
+  <span class="badge">&#x25CF;&nbsp; Data: RHDC, RDES &amp; RIAS · June 19, 2026</span>
+</div>
+
+<div class="main">
+  <a class="back-link" href="../index.html">&larr; Back to Data Hub</a>
+
+  <div class="district-card">
+    <div>
+      <div class="label">District Overview</div>
+      <div class="title">CIOB District — All Schools</div>
+      <div class="sub">51 schools · 20,463 students · CA% 46.3%</div>
+    </div>
+    <a class="btn-dl-district" href="../CIOB_District_EOY_Snapshot.pdf" download="CIOB_District_EOY_Snapshot.pdf">&#8659; Download District Snapshot</a>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search school name or DBN..." oninput="filterTable()">
+    <select id="partnerFilter" onchange="filterTable()">
+      <option value="">All partners</option>
+      <option value="Consortium">Consortium</option>
+      <option value="International">International</option>
+      <option value="Outward Bound">Outward Bound</option>
+    </select>
+    <span class="count" id="countLabel">51 schools</span>
+  </div>
+
+  <div class="table-wrap">
+    <table id="schoolTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">DBN &#8597;</th>
+          <th onclick="sortTable(1)">School Name &#8597;</th>
+          <th onclick="sortTable(2)">Partner &#8597;</th>
+          <th onclick="sortTable(3)" style="text-align:right">Att% &#8597;</th>
+          <th onclick="sortTable(4)" style="text-align:right">CA% &#8597;</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        
+    <tr>
+      <td class="dbn">01M450</td>
+      <td class="school-name">East Side Community School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">90.6%</td>
+      <td class="num ca">30.8%</td>
+      <td><a class="btn-dl" href="01M450_East_Side_Community_School.pdf" download="01M450_East_Side_Community_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">01M458</td>
+      <td class="school-name">Forsyth Satellite Academy</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">64.2%</td>
+      <td class="num ca">92.0%</td>
+      <td><a class="btn-dl" href="01M458_Forsyth_Satellite_Academy.pdf" download="01M458_Forsyth_Satellite_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M294</td>
+      <td class="school-name">Essex Street Academy</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">88.9%</td>
+      <td class="num ca">33.5%</td>
+      <td><a class="btn-dl" href="02M294_Essex_Street_Academy.pdf" download="02M294_Essex_Street_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M303</td>
+      <td class="school-name">The Facing History School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">81.3%</td>
+      <td class="num ca">57.6%</td>
+      <td><a class="btn-dl" href="02M303_The_Facing_History_School.pdf" download="02M303_The_Facing_History_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M313</td>
+      <td class="school-name">James Baldwin</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">59.5%</td>
+      <td class="num ca">89.7%</td>
+      <td><a class="btn-dl" href="02M313_James_Baldwin.pdf" download="02M313_James_Baldwin.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M395</td>
+      <td class="school-name">School Without Walls</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">63.4%</td>
+      <td class="num ca">75.1%</td>
+      <td><a class="btn-dl" href="02M395_School_Without_Walls.pdf" download="02M395_School_Without_Walls.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M407</td>
+      <td class="school-name">Institute for Collaborative Education</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">92.1%</td>
+      <td class="num ca">22.8%</td>
+      <td><a class="btn-dl" href="02M407_Institute_for_Collaborative_Education.pdf" download="02M407_Institute_for_Collaborative_Education.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M413</td>
+      <td class="school-name">School of the Future HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">90.3%</td>
+      <td class="num ca">30.5%</td>
+      <td><a class="btn-dl" href="02M413_School_of_the_Future_HS.pdf" download="02M413_School_of_the_Future_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M419</td>
+      <td class="school-name">Landmark HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">75.0%</td>
+      <td class="num ca">69.0%</td>
+      <td><a class="btn-dl" href="02M419_Landmark_HS.pdf" download="02M419_Landmark_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M438</td>
+      <td class="school-name">International HS at Union Square</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">86.0%</td>
+      <td class="num ca">42.2%</td>
+      <td><a class="btn-dl" href="02M438_International_HS_at_Union_Square.pdf" download="02M438_International_HS_at_Union_Square.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M449</td>
+      <td class="school-name">Vanguard HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">78.5%</td>
+      <td class="num ca">63.2%</td>
+      <td><a class="btn-dl" href="02M449_Vanguard_HS.pdf" download="02M449_Vanguard_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M459</td>
+      <td class="school-name">Manhattan International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">84.9%</td>
+      <td class="num ca">56.8%</td>
+      <td><a class="btn-dl" href="02M459_Manhattan_International_HS.pdf" download="02M459_Manhattan_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M534</td>
+      <td class="school-name">Harvest Collegiate HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">82.0%</td>
+      <td class="num ca">56.8%</td>
+      <td><a class="btn-dl" href="02M534_Harvest_Collegiate_HS.pdf" download="02M534_Harvest_Collegiate_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M560</td>
+      <td class="school-name">City As School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">53.1%</td>
+      <td class="num ca">96.4%</td>
+      <td><a class="btn-dl" href="02M560_City_As_School.pdf" download="02M560_City_As_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M565</td>
+      <td class="school-name">Urban Academy Laboratory HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">81.7%</td>
+      <td class="num ca">48.7%</td>
+      <td><a class="btn-dl" href="02M565_Urban_Academy_Laboratory_HS.pdf" download="02M565_Urban_Academy_Laboratory_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">02M605</td>
+      <td class="school-name">Humanities Preparatory Academy</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">86.9%</td>
+      <td class="num ca">41.4%</td>
+      <td><a class="btn-dl" href="02M605_Humanities_Preparatory_Academy.pdf" download="02M605_Humanities_Preparatory_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">03M479</td>
+      <td class="school-name">Beacon HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">93.9%</td>
+      <td class="num ca">16.2%</td>
+      <td><a class="btn-dl" href="03M479_Beacon_HS.pdf" download="03M479_Beacon_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">06M348</td>
+      <td class="school-name">Washington Heights</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">86.3%</td>
+      <td class="num ca">47.3%</td>
+      <td><a class="btn-dl" href="06M348_Washington_Heights.pdf" download="06M348_Washington_Heights.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">07X334</td>
+      <td class="school-name">International Community HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">85.3%</td>
+      <td class="num ca">44.5%</td>
+      <td><a class="btn-dl" href="07X334_International_Community_HS.pdf" download="07X334_International_Community_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">07X427</td>
+      <td class="school-name">Community School for Social Justice</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">76.9%</td>
+      <td class="num ca">63.2%</td>
+      <td><a class="btn-dl" href="07X427_Community_School_for_Social_Justice.pdf" download="07X427_Community_School_for_Social_Justice.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">07X495</td>
+      <td class="school-name">University Heights Secondary School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">91.5%</td>
+      <td class="num ca">29.6%</td>
+      <td><a class="btn-dl" href="07X495_University_Heights_Secondary_School.pdf" download="07X495_University_Heights_Secondary_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">08X636</td>
+      <td class="school-name">Virtual Innovation Academy</td>
+      <td><span class="pill" style="background:#88820;color:#888"></span></td>
+      <td class="num">84.0%</td>
+      <td class="num ca">40.0%</td>
+      <td><a class="btn-dl" href="08X636_Virtual_Innovation_Academy.pdf" download="08X636_Virtual_Innovation_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">09X403</td>
+      <td class="school-name">Bronx International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">79.1%</td>
+      <td class="num ca">54.5%</td>
+      <td><a class="btn-dl" href="09X403_Bronx_International_HS.pdf" download="09X403_Bronx_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">09X564</td>
+      <td class="school-name">Claremont International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">87.4%</td>
+      <td class="num ca">40.4%</td>
+      <td><a class="btn-dl" href="09X564_Claremont_International_HS.pdf" download="09X564_Claremont_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">10X351</td>
+      <td class="school-name">Bronx Collaborative HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">71.0%</td>
+      <td class="num ca">78.8%</td>
+      <td><a class="btn-dl" href="10X351_Bronx_Collaborative_HS.pdf" download="10X351_Bronx_Collaborative_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">10X397</td>
+      <td class="school-name">ELLIS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">77.3%</td>
+      <td class="num ca">58.0%</td>
+      <td><a class="btn-dl" href="10X397_ELLIS.pdf" download="10X397_ELLIS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">10X524</td>
+      <td class="school-name">Crotona International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">87.5%</td>
+      <td class="num ca">44.9%</td>
+      <td><a class="btn-dl" href="10X524_Crotona_International_HS.pdf" download="10X524_Crotona_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">11X265</td>
+      <td class="school-name">Bronx Lab School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">82.1%</td>
+      <td class="num ca">42.3%</td>
+      <td><a class="btn-dl" href="11X265_Bronx_Lab_School.pdf" download="11X265_Bronx_Lab_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">12X388</td>
+      <td class="school-name">Pan American IHS at Monroe</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">85.6%</td>
+      <td class="num ca">40.8%</td>
+      <td><a class="btn-dl" href="12X388_Pan_American_IHS_at_Monroe.pdf" download="12X388_Pan_American_IHS_at_Monroe.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">12X446</td>
+      <td class="school-name">AASSAB</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">67.8%</td>
+      <td class="num ca">77.6%</td>
+      <td><a class="btn-dl" href="12X446_AASSAB.pdf" download="12X446_AASSAB.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">12X682</td>
+      <td class="school-name">Fannie Lou Hamer Freedom HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">78.2%</td>
+      <td class="num ca">67.2%</td>
+      <td><a class="btn-dl" href="12X682_Fannie_Lou_Hamer_Freedom_HS.pdf" download="12X682_Fannie_Lou_Hamer_Freedom_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">13K439</td>
+      <td class="school-name">Brooklyn International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">86.4%</td>
+      <td class="num ca">45.0%</td>
+      <td><a class="btn-dl" href="13K439_Brooklyn_International_HS.pdf" download="13K439_Brooklyn_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">13K594</td>
+      <td class="school-name">Gotham Professional Arts Academy</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">70.9%</td>
+      <td class="num ca">72.5%</td>
+      <td><a class="btn-dl" href="13K594_Gotham_Professional_Arts_Academy.pdf" download="13K594_Gotham_Professional_Arts_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">14K586</td>
+      <td class="school-name">Lyons Community School</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">78.6%</td>
+      <td class="num ca">61.0%</td>
+      <td><a class="btn-dl" href="14K586_Lyons_Community_School.pdf" download="14K586_Lyons_Community_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">14K685</td>
+      <td class="school-name">El Puente Academy</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">75.0%</td>
+      <td class="num ca">73.4%</td>
+      <td><a class="btn-dl" href="14K685_El_Puente_Academy.pdf" download="14K685_El_Puente_Academy.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">15K448</td>
+      <td class="school-name">Brooklyn Collaborative Studies</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">83.5%</td>
+      <td class="num ca">53.7%</td>
+      <td><a class="btn-dl" href="15K448_Brooklyn_Collaborative_Studies.pdf" download="15K448_Brooklyn_Collaborative_Studies.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">17K524</td>
+      <td class="school-name">International HS at Prospect Heights</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">85.2%</td>
+      <td class="num ca">48.5%</td>
+      <td><a class="btn-dl" href="17K524_International_HS_at_Prospect_Heights.pdf" download="17K524_International_HS_at_Prospect_Heights.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">18K569</td>
+      <td class="school-name">Kurt Hahn</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">78.6%</td>
+      <td class="num ca">60.5%</td>
+      <td><a class="btn-dl" href="18K569_Kurt_Hahn.pdf" download="18K569_Kurt_Hahn.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">21K337</td>
+      <td class="school-name">International HS at Lafayette</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">77.5%</td>
+      <td class="num ca">52.2%</td>
+      <td><a class="btn-dl" href="21K337_International_HS_at_Lafayette.pdf" download="21K337_International_HS_at_Lafayette.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">21K572</td>
+      <td class="school-name">Leaders</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">86.2%</td>
+      <td class="num ca">43.5%</td>
+      <td><a class="btn-dl" href="21K572_Leaders.pdf" download="21K572_Leaders.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">24Q236</td>
+      <td class="school-name">International HS for Health Sciences</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">89.6%</td>
+      <td class="num ca">29.7%</td>
+      <td><a class="btn-dl" href="24Q236_International_HS_for_Health_Sciences.pdf" download="24Q236_International_HS_for_Health_Sciences.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">24Q296</td>
+      <td class="school-name">Pan American IHS @ Elmhurst</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">92.8%</td>
+      <td class="num ca">16.6%</td>
+      <td><a class="btn-dl" href="24Q296_Pan_American_IHS___Elmhurst.pdf" download="24Q296_Pan_American_IHS___Elmhurst.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">24Q520</td>
+      <td class="school-name">Middle College HS at LaGuardia</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">91.3%</td>
+      <td class="num ca">30.2%</td>
+      <td><a class="btn-dl" href="24Q520_Middle_College_HS_at_LaGuardia.pdf" download="24Q520_Middle_College_HS_at_LaGuardia.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">24Q530</td>
+      <td class="school-name">International HS at LaGuardia</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">90.6%</td>
+      <td class="num ca">26.4%</td>
+      <td><a class="btn-dl" href="24Q530_International_HS_at_LaGuardia.pdf" download="24Q530_International_HS_at_LaGuardia.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">24Q849</td>
+      <td class="school-name">Queens International</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">88.6%</td>
+      <td class="num ca">35.5%</td>
+      <td><a class="btn-dl" href="24Q849_Queens_International.pdf" download="24Q849_Queens_International.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">25Q263</td>
+      <td class="school-name">Flushing International HS</td>
+      <td><span class="pill" style="background:#0f5e5620;color:#0f5e56">International</span></td>
+      <td class="num">85.6%</td>
+      <td class="num ca">44.7%</td>
+      <td><a class="btn-dl" href="25Q263_Flushing_International_HS.pdf" download="25Q263_Flushing_International_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">27Q262</td>
+      <td class="school-name">Channel View School</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">84.1%</td>
+      <td class="num ca">50.7%</td>
+      <td><a class="btn-dl" href="27Q262_Channel_View_School.pdf" download="27Q262_Channel_View_School.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">28Q167</td>
+      <td class="school-name">Metropolitan</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">89.3%</td>
+      <td class="num ca">33.6%</td>
+      <td><a class="btn-dl" href="28Q167_Metropolitan.pdf" download="28Q167_Metropolitan.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">28Q338</td>
+      <td class="school-name">Queens Satellite HS</td>
+      <td><span class="pill" style="background:#1b2a4a20;color:#1b2a4a">Consortium</span></td>
+      <td class="num">62.4%</td>
+      <td class="num ca">75.4%</td>
+      <td><a class="btn-dl" href="28Q338_Queens_Satellite_HS.pdf" download="28Q338_Queens_Satellite_HS.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">29Q243</td>
+      <td class="school-name">Health Professions at Cambria Heights</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">86.5%</td>
+      <td class="num ca">51.2%</td>
+      <td><a class="btn-dl" href="29Q243_Health_Professions_at_Cambria_Heights.pdf" download="29Q243_Health_Professions_at_Cambria_Heights.pdf">&#8659; Download</a></td>
+    </tr>
+    <tr>
+      <td class="dbn">31R064</td>
+      <td class="school-name">Gaynor McCown</td>
+      <td><span class="pill" style="background:#eda10020;color:#eda100">Outward Bound</span></td>
+      <td class="num">89.2%</td>
+      <td class="num ca">38.0%</td>
+      <td><a class="btn-dl" href="31R064_Gaynor_McCown.pdf" download="31R064_Gaynor_McCown.pdf">&#8659; Download</a></td>
+    </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer class="footer">
+  <img src="../nycps-horizontal-logo-ckhs-mzkm-color.png" alt="NYC Public Schools">
+</footer>
+
+<script>
+function filterTable() {
+  const search  = document.getElementById('searchInput').value.toLowerCase();
+  const partner = document.getElementById('partnerFilter').value.toLowerCase();
+  const rows    = document.querySelectorAll('#tableBody tr');
+  let visible   = 0;
+  rows.forEach(row => {
+    const text   = row.textContent.toLowerCase();
+    const pCell  = row.cells[2].textContent.toLowerCase();
+    const match  = (!search || text.includes(search)) && (!partner || pCell.includes(partner));
+    row.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  document.getElementById('countLabel').textContent = visible + ' school' + (visible !== 1 ? 's' : '');
+}
+
+let sortDir = {};
+function sortTable(col) {
+  const tbody = document.getElementById('tableBody');
+  const rows  = Array.from(tbody.querySelectorAll('tr'));
+  sortDir[col] = !sortDir[col];
+  rows.sort((a, b) => {
+    const av = a.cells[col].textContent.trim();
+    const bv = b.cells[col].textContent.trim();
+    const an = parseFloat(av.replace('%',''));
+    const bn = parseFloat(bv.replace('%',''));
+    if (!isNaN(an) && !isNaN(bn)) return sortDir[col] ? an-bn : bn-an;
+    return sortDir[col] ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+</script>
+</body>
+</html>

@@ -164,24 +164,24 @@
       <select id="partnerFilter"><option value="">All partners</option></select></div>
   </div>
 
-  <div class="panel">
-    <h2>Year-Over-Year Attendance vs. Credit Accumulation</h2>
-    <p class="sub">Rows show each student's attendance band last year (24-25); columns show their attendance band this year (25-26). Each cell shows the average credit accumulation rate and the number of students for that specific combination of last year's band and this year's band. Blank cells = fewer than 5 students, suppressed.</p>
-    <div class="matrix-wrap"><table class="matrix" id="transitionMatrix"></table></div>
-  </div>
-
   <div class="grid-2">
     <div class="panel">
-      <h2>Credit Accumulation Rate by This-Year Attendance Band</h2>
-      <p class="sub">Credit Accumulation Rate = credits earned &divide; credits attempted, 25-26 school year (Term 7 / summer excluded). Bars sized by student count.</p>
-      <canvas id="bandChart" height="260"></canvas>
-      <div class="legend-row" id="bandLegend"></div>
+      <h2>Year-Over-Year Attendance vs. Credit Accumulation</h2>
+      <p class="sub">Rows show each student's attendance band last year (24-25); columns show their attendance band this year (25-26). Each cell shows the average credit accumulation rate and the number of students for that specific combination of last year's band and this year's band. Blank cells = fewer than 5 students, suppressed.</p>
+      <div class="matrix-wrap"><table class="matrix" id="transitionMatrix"></table></div>
     </div>
     <div class="panel">
       <h2>Student Scatter</h2>
       <p class="sub">Each dot is one student &middot; x = this year's YTD attendance %, y = credit accumulation rate &middot; color = attendance band</p>
       <canvas id="scatterChart" height="260"></canvas>
     </div>
+  </div>
+
+  <div class="panel">
+    <h2>Credit Accumulation Rate by This-Year Attendance Band</h2>
+    <p class="sub">Credit Accumulation Rate = credits earned &divide; credits attempted, 25-26 school year (Term 7 / summer excluded). Bars sized by student count.</p>
+    <div style="height:280px"><canvas id="bandChart"></canvas></div>
+    <div class="legend-row" id="bandLegend"></div>
   </div>
 
   <div class="panel">
@@ -343,6 +343,7 @@ function renderBandChart(rows) {
     data: { labels, datasets: [{ label: 'Avg Credit Accumulation Rate %', data: values, backgroundColor: colors, borderRadius: 4 }] },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: { legend: { display: false },
         tooltip: { callbacks: { afterLabel: (ctx) => `N = ${counts[ctx.dataIndex].toLocaleString()} students` } } },
       scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Credit Accumulation Rate %' } } }

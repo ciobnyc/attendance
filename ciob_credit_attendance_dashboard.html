@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIOB Attendance x Credit Accumulation Dashboard</title>
+<title>CIOB Credit Accumulation and Attendance Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
   :root {
@@ -135,7 +135,7 @@
 <body>
 
 <header>
-  <h1>Attendance &times; Credit Accumulation</h1>
+  <h1>Credit Accumulation and Attendance</h1>
   <p>CIOB students &middot; this year's (25-26) attendance band vs. credit accumulation rate, and year-over-year (24-25 &rarr; 25-26) attendance trajectory &middot; RATR + RDES (recomputed prior-year attendance from raw counts) + SWIEPs + ELL &middot; Student IDs masked</p>
 </header>
 
@@ -146,12 +146,6 @@
   <div class="controls">
     <div class="control"><label>School</label>
       <select id="schoolFilter"><option value="">All schools</option></select></div>
-    <div class="control"><label>School type</label>
-      <select id="typeFilter"><option value="">All types</option></select></div>
-    <div class="control"><label>Partner</label>
-      <select id="partnerFilter"><option value="">All partners</option></select></div>
-    <div class="control"><label>Grade span</label>
-      <select id="gradeFilter"><option value="">All grades</option></select></div>
     <div class="control"><label>Subgroup</label>
       <select id="subgroupType" onchange="updateSubgroupValue()">
         <option value="">No subgroup filter</option>
@@ -164,6 +158,10 @@
     <div class="control"><label>Subgroup value</label>
       <select id="subgroupValue" onchange="renderAll()" disabled><option value="">All</option></select>
       <div id="subgroupCheckboxes" style="display:none;padding:6px 0"></div></div>
+    <div class="control"><label>School type</label>
+      <select id="typeFilter"><option value="">All types</option></select></div>
+    <div class="control"><label>Partner</label>
+      <select id="partnerFilter"><option value="">All partners</option></select></div>
   </div>
 
   <div class="panel">
@@ -248,8 +246,6 @@ const typeSel = document.getElementById('typeFilter');
 TYPES.forEach((t,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=t; typeSel.appendChild(o); });
 const partnerSel = document.getElementById('partnerFilter');
 MODELS.forEach((m,i)=>{ if(!m) return; const o=document.createElement('option'); o.value=i; o.textContent=m; partnerSel.appendChild(o); });
-const gradeSel = document.getElementById('gradeFilter');
-GRS.forEach((g,i)=>{ if(g==='PK-5') return; const o=document.createElement('option'); o.value=i; o.textContent=g; gradeSel.appendChild(o); });
 
 function updateSubgroupValue() {
   const sg = document.getElementById('subgroupType').value;
@@ -279,7 +275,7 @@ function updateSubgroupValue() {
 }
 
 function filteredRows() {
-  const schoolIdx = schoolSel.value, typeIdx = typeSel.value, partnerIdx = partnerSel.value, gradeIdx = gradeSel.value;
+  const schoolIdx = schoolSel.value, typeIdx = typeSel.value, partnerIdx = partnerSel.value;
   const sg = document.getElementById('subgroupType').value;
   const isMulti = MULTI_SELECT_SUBGROUPS.includes(sg);
   let sv = null, multiSet = null;
@@ -294,7 +290,6 @@ function filteredRows() {
     if (schoolIdx !== '' && r[C.dbn] !== parseInt(schoolIdx)) return false;
     if (typeIdx !== '' && r[C.type] !== parseInt(typeIdx)) return false;
     if (partnerIdx !== '' && r[C.model] !== parseInt(partnerIdx)) return false;
-    if (gradeIdx !== '' && r[C.gr] !== parseInt(gradeIdx)) return false;
     if (sg) {
       const col = C[sg === 'coh' ? 'coh' : sg === 'eth' ? 'eth' : sg === 'gn' ? 'gn' : sg === 'ell' ? 'ell' : 'swd'];
       if (isMulti) { if (multiSet && !multiSet.has(r[col])) return false; }
@@ -464,7 +459,7 @@ function renderAll() {
   renderSchoolTable(rows);
 }
 
-[schoolSel, typeSel, partnerSel, gradeSel].forEach(el => el.addEventListener('change', renderAll));
+[schoolSel, typeSel, partnerSel].forEach(el => el.addEventListener('change', renderAll));
 renderAll();
 </script>
 </body>

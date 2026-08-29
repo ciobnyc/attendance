@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIOB Survey Topics vs. Chronic Absenteeism</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --band-1: #6b1030;
+    --band-2: #d4624a;
+    --band-3: #f5e642;
+    --band-4: #7ec87e;
+    --band-5: #0f5e56;
+    --ink: #1f2430;
+    --ink-soft: #5b6270;
+    --line: #e2e5ea;
+    --bg: #fafafa;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  header {
+    padding: 22px 28px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+  header p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 20px 28px 60px; }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .kpi .label { font-size: 11.5px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.03em; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .kpi .sub2 { font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .control label {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+  .control select {
+    font-size: 13px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: white;
+    min-width: 170px;
+  }
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .panel h2 { margin: 0 0 2px; font-size: 15px; font-weight: 700; }
+  .panel .sub { margin: 0 0 14px; font-size: 12.5px; color: var(--ink-soft); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  canvas { max-width: 100%; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  th {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--ink-soft); cursor: pointer; user-select: none;
+    position: sticky; top: 0; background: var(--card);
+  }
+  th:hover { color: var(--ink); }
+  tr:hover td { background: #f7f8fa; }
+  .table-wrap { max-height: 480px; overflow-y: auto; border: 1px solid var(--line); border-radius: 8px; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sig { font-weight: 700; }
+  .sig-yes { color: var(--band-5); }
+  .sig-border { color: #9a7a00; }
+  .sig-no { color: var(--ink-soft); font-weight: 400; }
+  .type-pill {
+    display: inline-block; font-size: 10.5px; padding: 1px 7px; border-radius: 10px;
+    background: #eef1f5; color: var(--ink-soft); border: 1px solid var(--line);
+  }
+  .type-Transfer { background: #fbeceb; color: #8a3a34; border-color: #f2d5d2; }
+
+  .note {
+    font-size: 12px; color: var(--ink-soft); background: #fbfbf9; border: 1px dashed var(--line);
+    border-radius: 8px; padding: 10px 12px; margin-top: 10px;
+  }
+
+  footer { text-align: center; font-size: 11.5px; color: var(--ink-soft); padding: 24px 0 10px; }
+  footer a { color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://ciobnyc.github.io/attendance/index.html" style="font-size:12.5px; color:var(--ink-soft); text-decoration:none;">&larr; Back to Data Hub</a>
+  <h1 style="margin-top:8px;">Survey Topics vs. Chronic Absenteeism</h1>
+  <p>CIOB school-level Panorama/NYC School Survey favorability &middot; vs. school-level CA% 2025&ndash;26 &middot; updated 2026-08-28 (CA source: PowerBI HS12)</p>
+</header>
+
+<div class="wrap">
+
+  <div class="kpis" id="kpiRow"></div>
+
+  <div class="controls">
+    <div class="control">
+      <label>Population</label>
+      <select id="popFilter">
+        <option value="all51">All 51 schools</option>
+        <optgroup label="By school type">
+          <option value="hs34" selected>HS-type only (n=34)</option>
+          <option value="six12_8">6 to 12 only (n=8)</option>
+          <option value="transfer8">Transfer schools only (n=8)</option>
+          <option value="k12_1">K to 12 only (n=1)</option>
+        </optgroup>
+        <optgroup label="By partner model">
+          <option value="consortium">Consortium only (n=23)</option>
+          <option value="consortium_no_transfer">Consortium, minus Transfer schools (n=17)</option>
+          <option value="inps">INPS only (n=16)</option>
+          <option value="nycob">NYCOB only (n=12)</option>
+          <option value="nycob_no_outliers">NYCOB, minus outlier schools (n=8)</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="control">
+      <label>Topic (scatter + correlation)</label>
+      <select id="topicFilter"></select>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="panel">
+      <h2 id="scatterTitle">Favorability vs. CA%</h2>
+      <p class="sub" id="scatterSub">Each dot is one school &middot; color = school type</p>
+      <canvas id="scatterChart" height="280"></canvas>
+    </div>
+    <div class="panel">
+      <h2>Correlation with CA%</h2>
+      <p class="sub">Shows how strongly each topic's favorability score tracks with a school's CA rate.</p>
+      <div class="table-wrap" style="max-height:340px;">
+        <table id="corrTable">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th class="num">Correlation</th>
+              <th class="num">p-value</th>
+              <th>Significant?</th>
+            </tr>
+          </thead>
+          <tbody id="corrTbody"></tbody>
+        </table>
+      </div>
+      <div class="note"><strong>How to read this:</strong> The correlation number ranges from -1 to 1. A negative number means schools that score higher on that topic tend to have lower CA rates, the pattern we'd expect if the topic matters for attendance. The closer the number is to -1, the stronger that pattern. The p-value tells us how likely it is that this pattern is just chance rather than something real. Green means the pattern is statistically significant (very unlikely to be chance). Amber means it's borderline. Gray means there isn't a clear pattern. Groups under about 15 schools (6 to 12, Transfer, K to 12) should be read as suggestive, not conclusive, since there's so little data to work with.</div>
+      <div class="note" id="adjustedNote" style="display:none; border-color:#c9d6c9; background:#f6faf6;"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>School Detail</h2>
+    <p class="sub">Click a column header to sort. All 51 schools shown regardless of population filter above.</p>
+    <div class="table-wrap">
+      <table id="schoolTable">
+        <thead>
+          <tr>
+            <th data-key="name">School</th>
+            <th data-key="type">Type</th>
+            <th data-key="partner">Partner</th>
+            <th data-key="att" class="num">Att% 25-26</th>
+            <th data-key="ca" class="num">CA% 25-26</th>
+            <th data-key="safety" class="num">Safety</th>
+            <th data-key="academic_press" class="num">Academic Press</th>
+            <th data-key="guidance" class="num">Guidance</th>
+            <th data-key="ile" class="num">Belonging</th>
+            <th data-key="trust" class="num">Trust</th>
+          </tr>
+        </thead>
+        <tbody id="schoolTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Created by Eugene Li, CIOB District Attendance Coordinator with Claude.ai. Please feel free to email me at eli2@schools.nyc.gov with questions or requests for support.
+  </footer>
+</div>
+
+<script id="dashboard-data" type="application/json">{"generated":"2026-08-28","topics":[{"label":"Safety","key":"safety"},{"label":"Academic Press","key":"academic_press"},{"label":"Guidance","key":"guidance"},{"label":"Inclusive Learning Environment","key":"ile"},{"label":"Student-Teacher Trust","key":"trust"}],"schools":[{"dbn":"12X446","name":"AASSAB","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":69.4,"ca":77.3,"safety":91.0,"academic_press":73.0,"guidance":81.0,"ile":78.0,"trust":83.0},{"dbn":"03M479","name":"Beacon HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":93.6,"ca":16.0,"safety":88.0,"academic_press":71.0,"guidance":62.0,"ile":78.0,"trust":78.0},{"dbn":"10X351","name":"Bronx Collaborative HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":71.1,"ca":78.9,"safety":66.0,"academic_press":39.0,"guidance":59.0,"ile":56.0,"trust":59.0},{"dbn":"09X403","name":"Bronx International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":77.9,"ca":54.4,"safety":83.0,"academic_press":58.0,"guidance":73.0,"ile":67.0,"trust":68.0},{"dbn":"11X265","name":"Bronx Lab School","type":"HS","partner":"Consortium","nycobOutlier":false,"att":83.5,"ca":40.2,"safety":97.0,"academic_press":86.0,"guidance":94.0,"ile":92.0,"trust":94.0},{"dbn":"15K448","name":"Brooklyn Collaborative Studies","type":"6 to 12","partner":"NYCOB","nycobOutlier":false,"att":84.4,"ca":53.3,"safety":79.0,"academic_press":63.0,"guidance":70.0,"ile":70.0,"trust":78.0},{"dbn":"13K439","name":"Brooklyn International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":86.5,"ca":44.6,"safety":86.0,"academic_press":67.0,"guidance":82.0,"ile":73.0,"trust":82.0},{"dbn":"27Q262","name":"Channel View School ","type":"6 to 12","partner":"NYCOB","nycobOutlier":false,"att":85.2,"ca":50.6,"safety":73.0,"academic_press":54.0,"guidance":72.0,"ile":62.0,"trust":70.0},{"dbn":"02M560","name":"City As School","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":52.7,"ca":96.3,"safety":87.0,"academic_press":59.0,"guidance":78.0,"ile":77.0,"trust":80.0},{"dbn":"09X564","name":"Claremont International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":87.1,"ca":40.2,"safety":99.0,"academic_press":95.0,"guidance":98.0,"ile":96.0,"trust":95.0},{"dbn":"07X427","name":"Community School for Social Justice","type":"HS","partner":"NYCOB","nycobOutlier":true,"att":77.1,"ca":61.2,"safety":90.0,"academic_press":72.0,"guidance":82.0,"ile":81.0,"trust":85.0},{"dbn":"10X524","name":"Crotona International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":87.1,"ca":44.3,"safety":76.0,"academic_press":52.0,"guidance":67.0,"ile":55.0,"trust":63.0},{"dbn":"10X397","name":"ELLIS","type":"Transfer","partner":"INPS","nycobOutlier":false,"att":77.4,"ca":57.4,"safety":88.0,"academic_press":61.0,"guidance":85.0,"ile":70.0,"trust":78.0},{"dbn":"01M450","name":"East Side Community School","type":"6 to 12","partner":"Consortium","nycobOutlier":false,"att":90.8,"ca":30.8,"safety":86.0,"academic_press":62.0,"guidance":72.0,"ile":77.0,"trust":80.0},{"dbn":"14K685","name":"El Puente Academy","type":"HS","partner":"Consortium","nycobOutlier":false,"att":74.8,"ca":72.7,"safety":88.0,"academic_press":58.0,"guidance":70.0,"ile":75.0,"trust":75.0},{"dbn":"02M294","name":"Essex Street Academy","type":"HS","partner":"Consortium","nycobOutlier":false,"att":89.1,"ca":33.2,"safety":89.0,"academic_press":70.0,"guidance":76.0,"ile":82.0,"trust":82.0},{"dbn":"12X682","name":"Fannie Lou Hamer Freedom HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":78.0,"ca":66.2,"safety":89.0,"academic_press":56.0,"guidance":79.0,"ile":76.0,"trust":81.0},{"dbn":"25Q263","name":"Flushing International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":85.5,"ca":44.2,"safety":81.0,"academic_press":62.0,"guidance":75.0,"ile":67.0,"trust":78.0},{"dbn":"01M458","name":"Forsyth Satellite Academy","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":63.4,"ca":92.2,"safety":95.0,"academic_press":69.0,"guidance":91.0,"ile":84.0,"trust":91.0},{"dbn":"31R064","name":"Gaynor McCown","type":"HS","partner":"NYCOB","nycobOutlier":false,"att":89.2,"ca":37.9,"safety":93.0,"academic_press":63.0,"guidance":76.0,"ile":79.0,"trust":78.0},{"dbn":"13K594","name":"Gotham Professional Arts Academy","type":"HS","partner":"Consortium","nycobOutlier":false,"att":70.6,"ca":72.6,"safety":77.0,"academic_press":59.0,"guidance":69.0,"ile":69.0,"trust":77.0},{"dbn":"02M534","name":"Harvest Collegiate HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":81.7,"ca":55.6,"safety":83.0,"academic_press":60.0,"guidance":73.0,"ile":68.0,"trust":77.0},{"dbn":"29Q243","name":"Health Professions at Cambria Heights","type":"HS","partner":"NYCOB","nycobOutlier":false,"att":86.2,"ca":51.2,"safety":74.0,"academic_press":51.0,"guidance":66.0,"ile":77.0,"trust":65.0},{"dbn":"02M605","name":"Humanities Preparatory Academy","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":87.1,"ca":41.6,"safety":88.0,"academic_press":62.0,"guidance":70.0,"ile":74.0,"trust":82.0},{"dbn":"02M407","name":"Institute for Collaborative Education","type":"6 to 12","partner":"Consortium","nycobOutlier":false,"att":91.8,"ca":22.3,"safety":88.0,"academic_press":77.0,"guidance":74.0,"ile":77.0,"trust":85.0},{"dbn":"07X334","name":"International Community HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":85.2,"ca":44.1,"safety":82.0,"academic_press":62.0,"guidance":79.0,"ile":68.0,"trust":76.0},{"dbn":"24Q530","name":"International HS at LaGuardia","type":"HS","partner":"INPS","nycobOutlier":false,"att":90.4,"ca":26.2,"safety":89.0,"academic_press":66.0,"guidance":83.0,"ile":77.0,"trust":82.0},{"dbn":"21K337","name":"International HS at Lafayette","type":"HS","partner":"INPS","nycobOutlier":false,"att":76.9,"ca":52.8,"safety":81.0,"academic_press":54.0,"guidance":68.0,"ile":60.0,"trust":69.0},{"dbn":"17K524","name":"International HS at Prospect Heights","type":"HS","partner":"INPS","nycobOutlier":false,"att":85.3,"ca":47.2,"safety":80.0,"academic_press":56.0,"guidance":75.0,"ile":66.0,"trust":73.0},{"dbn":"02M438","name":"International HS at Union Square","type":"HS","partner":"INPS","nycobOutlier":false,"att":87.1,"ca":41.2,"safety":83.0,"academic_press":55.0,"guidance":77.0,"ile":65.0,"trust":73.0},{"dbn":"24Q236","name":"International HS for Health Sciences","type":"HS","partner":"INPS","nycobOutlier":false,"att":89.5,"ca":28.7,"safety":84.0,"academic_press":63.0,"guidance":81.0,"ile":72.0,"trust":79.0},{"dbn":"02M313","name":"James Baldwin  ","type":"Transfer","partner":"NYCOB","nycobOutlier":true,"att":59.8,"ca":89.5,"safety":88.0,"academic_press":55.0,"guidance":81.0,"ile":82.0,"trust":79.0},{"dbn":"18K569","name":"Kurt Hahn  ","type":"HS","partner":"NYCOB","nycobOutlier":false,"att":78.5,"ca":60.0,"safety":69.0,"academic_press":49.0,"guidance":64.0,"ile":61.0,"trust":67.0},{"dbn":"02M419","name":"Landmark HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":76.8,"ca":68.0,"safety":80.0,"academic_press":52.0,"guidance":68.0,"ile":69.0,"trust":75.0},{"dbn":"21K572","name":"Leaders","type":"HS","partner":"NYCOB","nycobOutlier":false,"att":85.8,"ca":43.3,"safety":89.0,"academic_press":63.0,"guidance":77.0,"ile":73.0,"trust":79.0},{"dbn":"14K586","name":"Lyons Community School","type":"6 to 12","partner":"Consortium","nycobOutlier":false,"att":80.7,"ca":57.1,"safety":75.0,"academic_press":56.0,"guidance":72.0,"ile":64.0,"trust":75.0},{"dbn":"02M459","name":"Manhattan International HS","type":"HS","partner":"INPS","nycobOutlier":false,"att":84.7,"ca":56.4,"safety":83.0,"academic_press":63.0,"guidance":76.0,"ile":69.0,"trust":76.0},{"dbn":"28Q167","name":"Metropolitan  ","type":"6 to 12","partner":"NYCOB","nycobOutlier":true,"att":89.9,"ca":32.7,"safety":74.0,"academic_press":57.0,"guidance":58.0,"ile":63.0,"trust":71.0},{"dbn":"24Q520","name":"Middle College HS at LaGuardia","type":"HS","partner":"Consortium","nycobOutlier":false,"att":91.4,"ca":30.1,"safety":95.0,"academic_press":65.0,"guidance":82.0,"ile":84.0,"trust":83.0},{"dbn":"24Q296","name":"Pan American IHS @ Elmhurst","type":"HS","partner":"INPS","nycobOutlier":false,"att":95.1,"ca":15.4,"safety":88.0,"academic_press":60.0,"guidance":83.0,"ile":74.0,"trust":79.0},{"dbn":"12X388","name":"Pan American IHS at Monroe","type":"HS","partner":"INPS","nycobOutlier":false,"att":85.9,"ca":39.9,"safety":80.0,"academic_press":69.0,"guidance":78.0,"ile":64.0,"trust":80.0},{"dbn":"24Q849","name":"Queens International","type":"HS","partner":"INPS","nycobOutlier":false,"att":88.9,"ca":34.7,"safety":92.0,"academic_press":69.0,"guidance":84.0,"ile":70.0,"trust":83.0},{"dbn":"28Q338","name":"Queens Satellite HS","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":62.2,"ca":75.3,"safety":93.0,"academic_press":62.0,"guidance":83.0,"ile":75.0,"trust":83.0},{"dbn":"02M395","name":"School Without Walls","type":"HS","partner":"NYCOB","nycobOutlier":true,"att":63.8,"ca":72.8,"safety":89.0,"academic_press":64.0,"guidance":77.0,"ile":76.0,"trust":87.0},{"dbn":"02M413","name":"School of the Future HS","type":"6 to 12","partner":"Consortium","nycobOutlier":false,"att":90.7,"ca":30.1,"safety":85.0,"academic_press":65.0,"guidance":61.0,"ile":74.0,"trust":79.0},{"dbn":"02M303","name":"The Facing History School","type":"6 to 12","partner":"Consortium","nycobOutlier":false,"att":82.6,"ca":56.5,"safety":74.0,"academic_press":53.0,"guidance":75.0,"ile":65.0,"trust":71.0},{"dbn":"07X495","name":"University Heights Secondary School","type":"HS","partner":"Consortium","nycobOutlier":false,"att":91.1,"ca":29.5,"safety":89.0,"academic_press":62.0,"guidance":80.0,"ile":77.0,"trust":79.0},{"dbn":"02M565","name":"Urban Academy Laboratory HS","type":"Transfer","partner":"Consortium","nycobOutlier":false,"att":81.1,"ca":48.7,"safety":90.0,"academic_press":74.0,"guidance":78.0,"ile":79.0,"trust":77.0},{"dbn":"02M449","name":"Vanguard HS","type":"HS","partner":"Consortium","nycobOutlier":false,"att":78.7,"ca":63.3,"safety":80.0,"academic_press":58.0,"guidance":74.0,"ile":69.0,"trust":72.0},{"dbn":"08X636","name":"Virtual Innovation Academy","type":"HS","partner":"NYCOB","nycobOutlier":false,"att":84.2,"ca":39.1,"safety":96.0,"academic_press":74.0,"guidance":76.0,"ile":81.0,"trust":85.0},{"dbn":"06M348","name":"Washington Heights  ","type":"K to 12","partner":"NYCOB","nycobOutlier":false,"att":86.6,"ca":46.4,"safety":83.0,"academic_press":63.0,"guidance":76.0,"ile":70.0,"trust":77.0}],"corr":{"all51":{"safety":{"n":51,"rho":-0.191,"p_rho":0.1804},"academic_press":{"n":51,"rho":-0.402,"p_rho":0.0034},"guidance":{"n":51,"rho":-0.055,"p_rho":0.6991},"ile":{"n":51,"rho":-0.153,"p_rho":0.2825},"trust":{"n":51,"rho":-0.199,"p_rho":0.1622}},"hs34":{"safety":{"n":34,"rho":-0.478,"p_rho":0.0043},"academic_press":{"n":34,"rho":-0.532,"p_rho":0.0012},"guidance":{"n":34,"rho":-0.502,"p_rho":0.0025},"ile":{"n":34,"rho":-0.397,"p_rho":0.02},"trust":{"n":34,"rho":-0.42,"p_rho":0.0135}},"six12_8":{"safety":{"n":8,"rho":-0.635,"p_rho":0.0909},"academic_press":{"n":8,"rho":-0.762,"p_rho":0.028},"guidance":{"n":8,"rho":0.171,"p_rho":0.686},"ile":{"n":8,"rho":-0.599,"p_rho":0.1168},"trust":{"n":8,"rho":-0.635,"p_rho":0.0909}},"transfer8":{"safety":{"n":8,"rho":0.0,"p_rho":1.0},"academic_press":{"n":8,"rho":-0.371,"p_rho":0.3652},"guidance":{"n":8,"rho":0.349,"p_rho":0.3962},"ile":{"n":8,"rho":0.524,"p_rho":0.1827},"trust":{"n":8,"rho":0.371,"p_rho":0.3652}},"k12_1":{"safety":{"n":1,"rho":null,"p_rho":null},"academic_press":{"n":1,"rho":null,"p_rho":null},"guidance":{"n":1,"rho":null,"p_rho":null},"ile":{"n":1,"rho":null,"p_rho":null},"trust":{"n":1,"rho":null,"p_rho":null}},"consortium":{"safety":{"n":23,"rho":-0.135,"p_rho":0.5394},"academic_press":{"n":23,"rho":-0.476,"p_rho":0.0217},"guidance":{"n":23,"rho":0.102,"p_rho":0.6421},"ile":{"n":23,"rho":-0.28,"p_rho":0.1958},"trust":{"n":23,"rho":-0.175,"p_rho":0.4243}},"inps":{"safety":{"n":16,"rho":-0.358,"p_rho":0.1737},"academic_press":{"n":16,"rho":-0.401,"p_rho":0.1238},"guidance":{"n":16,"rho":-0.448,"p_rho":0.082},"ile":{"n":16,"rho":-0.411,"p_rho":0.1139},"trust":{"n":16,"rho":-0.585,"p_rho":0.0174}},"nycob":{"safety":{"n":12,"rho":-0.13,"p_rho":0.6876},"academic_press":{"n":12,"rho":-0.103,"p_rho":0.7496},"guidance":{"n":12,"rho":0.42,"p_rho":0.1743},"ile":{"n":12,"rho":0.218,"p_rho":0.497},"trust":{"n":12,"rho":0.243,"p_rho":0.4475}},"consortium_no_transfer":{"safety":{"n":17,"rho":-0.532,"p_rho":0.0278},"academic_press":{"n":17,"rho":-0.794,"p_rho":0.0001},"guidance":{"n":17,"rho":-0.31,"p_rho":0.2253},"ile":{"n":17,"rho":-0.643,"p_rho":0.0054},"trust":{"n":17,"rho":-0.637,"p_rho":0.0059}},"nycob_no_outliers":{"safety":{"n":8,"rho":-0.881,"p_rho":0.0039},"academic_press":{"n":8,"rho":-0.723,"p_rho":0.0427},"guidance":{"n":8,"rho":-0.854,"p_rho":0.007},"ile":{"n":8,"rho":-0.755,"p_rho":0.0305},"trust":{"n":8,"rho":-0.671,"p_rho":0.0687}}}}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+const TOPICS = DATA.topics;
+const SCHOOLS = DATA.schools;
+const CORR = DATA.corr;
+
+const TYPE_COLORS = {
+  'HS': '#0f5e56',
+  'Transfer': '#d4624a',
+  '6 to 12': '#7ec87e',
+  'K to 12': '#5b6270'
+};
+
+const popSel = document.getElementById('popFilter');
+const topicSel = document.getElementById('topicFilter');
+
+TOPICS.forEach(t => {
+  const opt = document.createElement('option');
+  opt.value = t.key; opt.textContent = t.label;
+  topicSel.appendChild(opt);
+});
+topicSel.value = 'safety';
+
+const POP_TYPE = {
+  'hs34': 'HS',
+  'six12_8': '6 to 12',
+  'transfer8': 'Transfer',
+  'k12_1': 'K to 12',
+};
+const POP_PARTNER = {
+  'consortium': 'Consortium',
+  'inps': 'INPS',
+  'nycob': 'NYCOB',
+};
+function schoolsForPop(pop) {
+  if (POP_TYPE[pop]) return SCHOOLS.filter(s => s.type === POP_TYPE[pop]);
+  if (POP_PARTNER[pop]) return SCHOOLS.filter(s => s.partner === POP_PARTNER[pop]);
+  if (pop === 'consortium_no_transfer') return SCHOOLS.filter(s => s.partner === 'Consortium' && s.type !== 'Transfer');
+  if (pop === 'nycob_no_outliers') return SCHOOLS.filter(s => s.partner === 'NYCOB' && !s.nycobOutlier);
+  return SCHOOLS;
+}
+
+const ADJUSTED_NOTES = {
+  'consortium_no_transfer': `<strong>Why this view exists:</strong> 6 of Consortium's 23 schools are Transfer schools. Transfer schools score higher than regular HS on every single survey topic, yet have a much higher CA rate (71.5% vs. 47.8%). Within the Transfer group itself, several topics actually correlate in the opposite direction, higher favorability, higher CA. This likely reflects the design and population these schools are built to serve. The students who do attend regularly are part of a smaller, more consistently-present cohort, so they get more individual adult attention and report it. But the students driving the CA rate have often already self-excluded from those same supports. With Transfer schools included, only Academic Press reaches significance for Consortium overall. Remove them, and 4 of 5 topics become significant, a clearer picture for the remaining 17 schools.`,
+  'nycob_no_outliers': `<strong>Why this view exists:</strong> 4 NYCOB schools (Metropolitan, James Baldwin, School Without Walls, and Community School for Social Justice) break the expected pattern: some score high on favorability but also have high CA, one scores low on favorability with low CA. Together they reverse the correlation for all 12 NYCOB schools (positive instead of negative, and not significant). James Baldwin is also a Transfer school, which fits the same pattern seen elsewhere; the other three don't have an obvious explanation in this data and may be worth a closer, school-by-school look. Removing all four reveals a strong, mostly significant negative correlation in the remaining 8 schools.`,
+};
+
+function renderAdjustedNote() {
+  const pop = popSel.value;
+  const el = document.getElementById('adjustedNote');
+  if (ADJUSTED_NOTES[pop]) {
+    el.style.display = 'block';
+    el.innerHTML = ADJUSTED_NOTES[pop];
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+function renderKPIs() {
+  const pop = popSel.value;
+  const subset = schoolsForPop(pop);
+  const n = subset.length;
+  const avgCa = subset.length ? (subset.reduce((a,s)=>a+s.ca,0)/subset.length) : null;
+  const corrForPop = CORR[pop];
+  let strongest = null;
+  Object.entries(corrForPop).forEach(([key, v]) => {
+    if (!v || v.rho === null) return;
+    if (!strongest || Math.abs(v.rho) > Math.abs(strongest.rho)) strongest = { key, ...v };
+  });
+  const strongestLabel = strongest ? TOPICS.find(t => t.key === strongest.key).label : 'n too small';
+  const usableTopics = Object.values(corrForPop).filter(v => v && v.p_rho !== null);
+
+  const kpis = [
+    { label: 'Schools in view', value: n },
+    { label: 'Avg CA% (this population)', value: avgCa !== null ? avgCa.toFixed(1) + '%' : '—' },
+    { label: 'Strongest correlate', value: strongestLabel, sub2: strongest ? `\u03C1 = ${strongest.rho}, p = ${strongest.p_rho}` : (n < 4 ? `n=${n}, too small to correlate` : '') },
+    { label: 'Significant topics (p<0.05)', value: usableTopics.filter(v => v.p_rho < 0.05).length + ' of ' + usableTopics.length },
+  ];
+  document.getElementById('kpiRow').innerHTML = kpis.map(k =>
+    `<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div>${k.sub2?`<div class="sub2">${k.sub2}</div>`:''}</div>`
+  ).join('');
+}
+
+let scatterChart;
+function renderScatter() {
+  const pop = popSel.value;
+  const topicKey = topicSel.value;
+  const topicLabel = TOPICS.find(t => t.key === topicKey).label;
+  const subset = schoolsForPop(pop);
+
+  document.getElementById('scatterTitle').textContent = `${topicLabel} vs. CA%`;
+  document.getElementById('scatterSub').textContent = `Each dot is one school (${subset.length} shown) · color = school type`;
+
+  const byType = {};
+  subset.forEach(s => {
+    if (s[topicKey] === null || s[topicKey] === undefined) return;
+    if (!byType[s.type]) byType[s.type] = [];
+    byType[s.type].push({ x: s[topicKey], y: s.ca, name: s.name });
+  });
+
+  const datasets = Object.entries(byType).map(([type, pts]) => ({
+    label: type,
+    data: pts,
+    backgroundColor: (TYPE_COLORS[type] || '#999') + 'cc',
+    pointRadius: 4,
+  }));
+
+  const ctx = document.getElementById('scatterChart');
+  if (scatterChart) scatterChart.destroy();
+  scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: { datasets },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true, position: 'top', labels: { boxWidth: 10, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.raw.name}: ${topicLabel} ${ctx.raw.x}%, CA ${ctx.raw.y}%`
+          }
+        }
+      },
+      scales: {
+        x: { min: 0, max: 100, title: { display: true, text: topicLabel + ' % Favorable' } },
+        y: { min: 0, max: 100, title: { display: true, text: 'CA% 25-26' } }
+      }
+    }
+  });
+}
+
+function sigClass(p) {
+  if (p === null || p === undefined) return 'sig-no';
+  if (p < 0.05) return 'sig sig-yes';
+  if (p < 0.10) return 'sig sig-border';
+  return 'sig-no';
+}
+
+function renderCorrTable() {
+  const pop = popSel.value;
+  const corrForPop = CORR[pop];
+  const rows = TOPICS.map(t => {
+    const v = corrForPop[t.key];
+    if (!v || v.rho === null) return `<tr><td>${t.label}</td><td colspan="3" class="num">n too small (n=${v?v.n:0})</td></tr>`;
+    const sigLabel = v.p_rho < 0.05 ? 'Yes' : (v.p_rho < 0.10 ? 'Borderline' : 'No');
+    return `<tr>
+      <td>${t.label}</td>
+      <td class="num">${v.rho}</td>
+      <td class="num ${sigClass(v.p_rho)}">${v.p_rho}</td>
+      <td class="${sigClass(v.p_rho)}">${sigLabel}</td>
+    </tr>`;
+  });
+  document.getElementById('corrTbody').innerHTML = rows.join('');
+}
+
+let sortKey = 'ca', sortAsc = false;
+function renderSchoolTable() {
+  let rows = SCHOOLS.slice();
+  rows.sort((a,b) => {
+    let va = a[sortKey], vb = b[sortKey];
+    if (va === null || va === undefined) return 1;
+    if (vb === null || vb === undefined) return -1;
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+  document.getElementById('schoolTbody').innerHTML = rows.map(s => `
+    <tr>
+      <td>${s.name}${s.nycobOutlier ? ' <span style="color:#9a7a00; font-size:11px;" title="Breaks the expected NYCOB correlation pattern">&#9888;</span>' : ''}</td>
+      <td><span class="type-pill type-${s.type.replace(/\s/g,'')}">${s.type}</span></td>
+      <td>${s.partner || '<span style="color:var(--ink-soft)">Unknown</span>'}</td>
+      <td class="num">${s.att.toFixed(1)}%</td>
+      <td class="num">${s.ca.toFixed(1)}%</td>
+      <td class="num">${s.safety !== null ? s.safety.toFixed(0)+'%' : '—'}</td>
+      <td class="num">${s.academic_press !== null ? s.academic_press.toFixed(0)+'%' : '—'}</td>
+      <td class="num">${s.guidance !== null ? s.guidance.toFixed(0)+'%' : '—'}</td>
+      <td class="num">${s.ile !== null ? s.ile.toFixed(0)+'%' : '—'}</td>
+      <td class="num">${s.trust !== null ? s.trust.toFixed(0)+'%' : '—'}</td>
+    </tr>
+  `).join('');
+}
+
+document.querySelectorAll('#schoolTable th[data-key]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.key;
+    if (sortKey === key) sortAsc = !sortAsc; else { sortKey = key; sortAsc = true; }
+    renderSchoolTable();
+  });
+});
+
+function renderAll() {
+  renderKPIs();
+  try { renderScatter(); } catch (e) { console.error('Chart render failed:', e); }
+  renderCorrTable();
+  renderSchoolTable();
+  renderAdjustedNote();
+}
+
+popSel.addEventListener('change', renderAll);
+topicSel.addEventListener('change', () => { try { renderScatter(); } catch (e) { console.error('Chart render failed:', e); } });
+
+renderAll();
+</script>
+
+</body>
+</html>

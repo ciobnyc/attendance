@@ -27,6 +27,8 @@
   .card-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
   .badge-live { background: #e6f4f1; color: #0f5e56; }
   .badge-coming { background: #f0efe9; color: #888; }
+  .badge-new { background: #fffbe6; color: #92610a; border: 1px solid #f5d87a; }
+  .badge-updated { background: #e8f0fe; color: #1a4fa0; }
   .card-title { font-size: 16px; font-weight: 600; color: #1a1a18; margin-bottom: 6px; }
   .card-desc { font-size: 13px; color: #6b6a65; line-height: 1.55; }
   .card-meta { font-size: 11px; color: #aaa; margin-top: 10px; }
@@ -59,7 +61,6 @@
 <div class="hero">
   <h1>CIOB Attendance Data Hub</h1>
   <p>Data tools to support attendance planning, goal-setting, and school-based intervention across the 51 schools of the Consortium, Internationals, and NYC Outward Bound Schools district.</p>
-  <span class="data-badge">&#x25CF;&nbsp; Data current as of July 9, 2026</span>
 </div>
 
 <div class="main">
@@ -67,12 +68,69 @@
   <div class="section-label">Planning Tools</div>
   <div class="tools-grid">
 
+    <!-- 1: CA Trend Tracker — top left, Live + New -->
+    <div class="tool-card">
+      <div class="card-top">
+        <span class="card-badge badge-live">Live</span>
+        <span class="card-badge badge-new" style="margin-left:4px">New</span>
+        <div class="card-title">CA Trend Tracker</div>
+        <div class="card-desc">Use this dashboard to understand historical CA patterns at each school, set realistic data-informed goals, and monitor progress month by month by comparing current CA rates against the same month in prior years. Built from the HS12 Historical Dashboard (PowerBI Central).</div>
+        <div class="card-meta">Source: HS12 Historical &middot; PowerBI Central &nbsp;&middot;&nbsp; 52 schools + district</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag">CA trends</span>
+          <span class="tag">Goal setting</span>
+          <span class="tag">Year-over-year</span>
+        </div>
+        <a class="btn btn-primary" href="ciob_ca_trend.html">Open &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 2: Daily Attendance Analysis — top center -->
+    <div class="tool-card">
+      <div class="card-top">
+        <span class="card-badge badge-live">Live</span>
+        <div class="card-title">Daily Attendance Analysis 2025&ndash;26</div>
+        <div class="card-desc">School-by-school daily attendance breakdown for the full year. Shows YTD weighted average, highest and lowest attendance days, top and bottom 10 days with counts, monthly trend, and day-of-week patterns. Select any school or view the district in aggregate.</div>
+        <div class="card-meta">Source: RHDC daily counts &middot; FDOS&ndash;May 29, 2026 &nbsp;&middot;&nbsp; 51 schools + district</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag">Daily</span>
+          <span class="tag">Monthly trend</span>
+          <span class="tag">Day of week</span>
+        </div>
+        <a class="btn btn-primary" href="ciob_daily_attendance.html">Open &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 3: Credit Accumulation — top right, New -->
+    <div class="tool-card">
+      <div class="card-top">
+        <span class="card-badge badge-live">Live</span>
+        <span class="card-badge badge-new" style="margin-left:4px">New</span>
+        <div class="card-title">Attendance &times; Credit Accumulation</div>
+        <div class="card-desc">Explore the relationship between student attendance and credit accumulation across CIOB schools. Visualize how attendance rates correlate with credits earned and identify the attendance thresholds where academic outcomes shift most sharply.</div>
+        <div class="card-meta">Source: ATS RIAS, RDES &middot; SY 2025&ndash;26 &nbsp;&middot;&nbsp; 51 schools</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag">Credit accumulation</span>
+          <span class="tag">Outcomes</span>
+          <span class="tag">Butterfly</span>
+        </div>
+        <a class="btn btn-primary" href="ciob_credit_accumulation.html">Open &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 4: Attendance Distribution -->
     <div class="tool-card">
       <div class="card-top">
         <span class="card-badge badge-live">Live</span>
         <div class="card-title">Attendance Distribution Dashboard</div>
         <div class="card-desc">See how students are distributed across five attendance bands at every school in the district. Filter by school, partner, school type, and subgroup. Use the distribution to set goals that are grounded in data and build plans that match the right supports to the right students.</div>
-        <div class="card-meta">Source: RATR downloaded 7/6/26 &nbsp;&middot;&nbsp; 22,195 students &middot; 51 schools</div>
+        <div class="card-meta">Source: ATS RIAS, RDES, SESIS &middot; June 19, 2026 &nbsp;&middot;&nbsp; 20,463 students &middot; 51 schools</div>
       </div>
       <div class="card-footer">
         <div class="card-tags">
@@ -85,12 +143,14 @@
       </div>
     </div>
 
+    <!-- 5: EOY Snapshots — Updated -->
     <div class="tool-card">
       <div class="card-top">
         <span class="card-badge badge-live">Live</span>
-        <div class="card-title">EOY School Attendance Snapshots 2025–26</div>
+        <span class="card-badge badge-updated" style="margin-left:4px">Updated</span>
+        <div class="card-title">EOY School Snapshots 2025&ndash;26</div>
         <div class="card-desc">One-page attendance snapshots for all 51 schools and the district. Each snapshot includes EOY attendance and CA rates, attendance distribution by band, year-over-year trajectory, cohort breakdown, and subgroup attendance for SWIEPs, ELL, Black, and Hispanic students.</div>
-        <div class="card-meta">Data: RHDC, RDES &amp; RATR &middot; July 9, 2026 &nbsp;&middot;&nbsp; 51 schools + district overview</div>
+        <div class="card-meta">Source: RHDC, RDES &amp; RIAS &middot; June 19, 2026 &nbsp;&middot;&nbsp; 51 schools + district overview</div>
       </div>
       <div class="card-footer">
         <div class="card-tags">
@@ -103,72 +163,23 @@
       </div>
     </div>
 
+    <!-- 6: Survey vs CA — New -->
     <div class="tool-card">
       <div class="card-top">
         <span class="card-badge badge-live">Live</span>
-        <div class="card-title">Daily Attendance Analysis 2025–26</div>
-        <div class="card-desc">School-by-school daily attendance breakdown for the full year. Shows YTD weighted average, highest and lowest attendance days, top and bottom 10 days with counts, monthly trend, and day-of-week patterns. Select any school or view the district in aggregate.</div>
-        <div class="card-meta">Based on RHDC daily counts &middot; SY 2024–25 (FDOS–Jun 26, 2025) and SY 2025–26 (FDOS–Jun 26, 2026)</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags">
-          <span class="tag">Daily</span>
-          <span class="tag">Monthly trend</span>
-          <span class="tag">Day of week</span>
-        </div>
-        <a class="btn btn-primary" href="ciob_daily_attendance.html">Open &rarr;</a>
-      </div>
-    </div>
-
-    <div class="tool-card">
-      <div class="card-top">
-        <span class="card-badge badge-live">Live</span>
-        <div class="card-title">Attendance &times; Credit Accumulation</div>
-        <div class="card-desc">See how year-over-year attendance gains and declines relate to credit accumulation rate. Filter by school, partner, school type, grade, and subgroup.</div>
-        <div class="card-meta">Source: RATR, RDES, SWIEPs, RFSF ELL records &middot; SY 2025-26 &nbsp;&middot;&nbsp; 22,195 students &middot; 51 schools</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags">
-          <span class="tag">Credit accumulation</span>
-          <span class="tag">YoY trajectory</span>
-          <span class="tag">Subgroups</span>
-        </div>
-        <a class="btn btn-primary" href="ciob_credit_attendance_dashboard.html">Open &rarr;</a>
-      </div>
-    </div>
-
-    <div class="tool-card">
-      <div class="card-top">
-        <span class="card-badge badge-live">Live</span>
+        <span class="card-badge badge-new" style="margin-left:4px">New</span>
         <div class="card-title">Survey Topics vs. Chronic Absenteeism</div>
-        <div class="card-desc">See how each NYC School Survey topic's favorability score correlates with a school's chronic absenteeism rate. Filter by school type or partner model, including adjusted views that isolate the effect of Transfer schools and a small group of outlier schools.</div>
-        <div class="card-meta">Source: NYC School Survey (Panorama) &middot; SY 2025&ndash;26 &nbsp;&middot;&nbsp; 51 schools</div>
+        <div class="card-desc">Explore the relationship between NYC School Survey results and chronic absenteeism rates across CIOB schools. Compare school climate indicators — including student-teacher trust and sense of belonging — against CA rates to identify the school culture factors most associated with attendance.</div>
+        <div class="card-meta">Source: NYC School Survey (Panorama) &middot; HS12 Historical &nbsp;&middot;&nbsp; 51 schools</div>
       </div>
       <div class="card-footer">
         <div class="card-tags">
-          <span class="tag">Correlation</span>
-          <span class="tag">Safety &amp; Trust</span>
+          <span class="tag">School survey</span>
           <span class="tag">Belonging</span>
-          <span class="tag">Partner models</span>
+          <span class="tag">Trust</span>
+          <span class="tag">CA correlation</span>
         </div>
-        <a class="btn btn-primary" href="ciob_survey_ca_dashboard.html">Open &rarr;</a>
-      </div>
-    </div>
-
-    <div class="tool-card">
-      <div class="card-top">
-        <span class="card-badge badge-coming">Coming Soon</span>
-        <div class="card-title">Month-Over-Month CA Trend</div>
-        <div class="card-desc">Track how each school's chronic absenteeism rate changes month by month through the school year. Compare current CA rates against prior months to understand whether schools are on track to meet their goals.</div>
-        <div class="card-meta">Planned: Fall 2026 &nbsp;&middot;&nbsp; Monthly RIAS pulls</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-tags">
-          <span class="tag">Trends</span>
-          <span class="tag">Monthly</span>
-          <span class="tag">Goal tracking</span>
-        </div>
-        <span class="btn btn-disabled">Coming soon</span>
+        <a class="btn btn-primary" href="ciob_survey_ca.html">Open &rarr;</a>
       </div>
     </div>
 
